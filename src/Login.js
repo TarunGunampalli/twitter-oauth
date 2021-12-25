@@ -3,7 +3,7 @@ import OAuth2Login from 'react-simple-oauth2-login';
 const onSuccess = (response) => console.log(response);
 const onFailure = (response) => console.error(response);
 
-const Login = () => {
+const Login = async () => {
 	return (
 		<OAuth2Login
 			authorizationUrl='https://twitter.com/i/oauth2/authorize'
