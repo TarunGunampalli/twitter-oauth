@@ -2,7 +2,7 @@ import OAuth2Login from 'react-simple-oauth2-login';
 
 const onSuccess = (response) => console.log(response);
 const onFailure = (response) => console.error(response);
-const scopes = ['tweet.read', 'users.read'];
+const scopes = ['tweet.read', 'users.read', 'offline.access'];
 
 const Login = () => {
 	return (

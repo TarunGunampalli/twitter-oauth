@@ -1,3 +1,5 @@
+import { Buffer } from 'buffer';
+
 async function getTweets(userID, accessCode) {
 	const response = await fetch(`https://api.twitter.com/2/users/${userID}/tweets`, {
 		method: 'GET', // *GET, POST, PUT, DELETE, etc.
@@ -17,6 +19,10 @@ async function getTweets(userID, accessCode) {
 }
 
 async function getAccessToken(authorizationCode) {
+	const basicAuth = Buffer.from(`${process.env.REACT_APP_CLIENT_ID}:${process.env.REACT_APP_CLIENT_SECRET}`).toString(
+		'base64'
+	);
+	console.log(basicAuth);
 	const body = new URLSearchParams({
 		code: authorizationCode,
 		grant_type: 'authorization_code',
@@ -26,9 +32,10 @@ async function getAccessToken(authorizationCode) {
 		code_verifier: 'challenge',
 	});
 	let response = await fetch('https://api.twitter.com/2/oauth2/token', {
-		method: 'POST', // *GET, POST, PUT, DELETE, etc.
+		method: 'POST',
 		mode: 'no-cors',
 		headers: {
+			Authorization: `Basic ${basicAuth}`,
 			'Content-Type': 'application/x-www-form-urlencoded',
 		},
 		body: body.toString(),
