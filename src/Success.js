@@ -22,6 +22,7 @@ async function getAccessToken(authorizationCode) {
 	const basicAuth = Buffer.from(`${process.env.REACT_APP_CLIENT_ID}:${process.env.REACT_APP_CLIENT_SECRET}`).toString(
 		'base64'
 	);
+	// const basicAuth = btoa(`${process.env.REACT_APP_CLIENT_ID}:${process.env.REACT_APP_CLIENT_SECRET}`);
 	console.log(basicAuth);
 	const body = new URLSearchParams({
 		code: authorizationCode,
