@@ -3,18 +3,6 @@ import TwitterProvider from 'next-auth/providers/twitter';
 
 export default NextAuth({
 	secret: process.env.SECRET,
-	// debug: true,
-	// logger: {
-	// 	error(code, metadata) {
-	// 		console.error(code, metadata);
-	// 	},
-	// 	warn(code) {
-	// 		console.warn(code);
-	// 	},
-	// 	debug(code, metadata) {
-	// 		console.debug(code, metadata);
-	// 	},
-	// },
 	providers: [
 		{
 			id: 'twitter',
@@ -31,13 +19,19 @@ export default NextAuth({
 			},
 			token: {
 				url: 'https://api.twitter.com/2/oauth2/token',
-				params: { code_verifier: 'challenge', client_id: process.env.TWITTER_CLIENT_ID },
+				params: {
+					grant_type: 'authorization_code',
+					redirect_uri: 'http://localhost:3000/api/auth/callback/twitter',
+					code_verifier: 'challenge',
+					client_id: process.env.TWITTER_CLIENT_ID,
+					client_secret: process.env.TWITTER_CLIENT_SECRET,
+				},
 			},
 			clientId: process.env.TWITTER_CLIENT_ID,
 			clientSecret: process.env.TWITTER_CLIENT_SECRET,
-			userinfo: 'https://api.twitter.com/2/users/me',
+			// userinfo: 'https://api.twitter.com/2/users/me',
 			profile(profile) {
-				console.log(profile);
+				// console.log(profile);
 				return {
 					// id: profile.id,
 					profile: profile,
